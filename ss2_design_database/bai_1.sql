@@ -15,10 +15,10 @@ create table books(
 id int primary key auto_increment,
 title varchar(50),
 page_size int,
-id_authors int,
-id_category int,
-foreign key(id_authors) references authors(id),
-foreign key(id_category) references category(id)
+authors_id int,
+category_id int,
+foreign key(authors_id) references authors(id),
+foreign key(category_id) references category(id)
 );
 
 create table students(
@@ -29,11 +29,11 @@ class_name varchar(10)
 );
 
 create table borrows(
+id int primary key auto_increment,
 students_id int,
 books_id int,
 borrow_date date,
 return_date date,
-primary key(students_id,books_id),
 foreign key(students_id) references students(id),
 foreign key(books_id) references books(id)
 );
