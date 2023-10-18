@@ -1,0 +1,27 @@
+.row{
+    margin: 15px;
+}
+
+.col-sm-3 li{
+    list-style: none;
+    border:2px black;
+}
+
+.card{
+float: left;
+    margin: 5px;
+}
+
+.card-title{
+    color: #09c4ce;
+}
+.navbar-collapse{
+    float: left;
+}
+.navbar{
+    border: black;
+}
+
+.nav-link{
+    color: rgb(218, 212, 212);
+}
