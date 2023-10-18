@@ -25,3 +25,13 @@ float: left;
 .nav-link{
     color: rgb(218, 212, 212);
 }
+.footer{
+    background-color: black;
+    color: rgb(218, 212, 212);
+    height: 70px;
+    text-align: center;
+    padding-top: 20px;
+}
+.footer span{
+    color: #09c4ce;
+}
