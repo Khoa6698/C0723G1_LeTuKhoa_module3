@@ -10,7 +10,7 @@
 <body>
 <div class="container-fluid">
     <a class="btn btn-outline-primary" href="/book?action=add" role="button">Them moi sách</a>
-    <p><%=request.getParameter("mess")%></p>
+    <p style="color: green"><%=request.getParameter("mess")%></p>
     <table class="table table-hover">
         <thead>
         <tr>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id">
-                        Ban co chac chan xoa <span id="nameDel" class="text-danger"> </span> ?
+                        Ban co chac chan xoa <span id="title" class="text-danger"> </span> ?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

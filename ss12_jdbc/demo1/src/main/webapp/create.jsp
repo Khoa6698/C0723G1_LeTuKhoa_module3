@@ -13,15 +13,22 @@
 </head>
 <body>
 <form action="/book?action=create" method="post">
-    <label>Id</label>
-    <label>Tên: <input type="text" name="title"></label>
-    <label>Page size: <input type="number" name="pageSize"></label>
-    <label>Author: <input type="number" name="author"></label>
+<%--    <label>Id</label>--%>
+    <label>Tên: <input type="text" name="title"></label><br>
+    <label>Page size: <input type="number" name="pageSize"></label><br>
+<%--    <label>Author: <input type="number" name="author"></label>--%>
+    <select name="author">
+        <option value="1">Nguyễn Thái Học</option>
+        <option value="2">Trần Minh Hoàng</option>
+        <option value="3">Dương Trung Quốc</option>
+        <option value="4">Lê Văn Hiếu</option>
+        <option value="5">Hà Văn Minh</option>
+    </select><br>
     <select name="categoryId">
         <c:forEach items="${list}" var="category">
             <option value="${category.id}">${category.name}</option>
         </c:forEach>
-    </select>
+    </select><br>
     <input value="them moi" type="submit">
 </form>
 </body>

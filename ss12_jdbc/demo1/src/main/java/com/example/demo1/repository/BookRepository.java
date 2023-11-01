@@ -11,8 +11,8 @@ import java.util.List;
 public class BookRepository implements IBookRepository {
     private ICategoryRepository iCategoryRepository = new CategoryRepository();
     private static final String SELECT_ALL_BOOK = "select * from books";
-    private static final String DELETE_BY_ID = "delete from books where id = ?";
-    private static final String ADD_BOOK = "insert into books(title,page_size,author_id,category_id) values(?,?,?,?);";
+    private static final String DELETE_BY_ID = "delete from books where id = ?;";
+    private static final String ADD_BOOK = "insert into books(title,page_size,authors_id,category_id) values(?,?,?,?);";
 
     @Override
     public List<Book> showList() {

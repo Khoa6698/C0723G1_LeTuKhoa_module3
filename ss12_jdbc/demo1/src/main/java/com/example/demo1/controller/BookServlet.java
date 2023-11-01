@@ -80,12 +80,12 @@ public class BookServlet extends HttpServlet {
     }
 
     private void create(HttpServletRequest req, HttpServletResponse resp) {
-        int id = Integer.parseInt(req.getParameter("id"));
+//        int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("title");
         int pageSize = Integer.parseInt(req.getParameter("pageSize"));
         int author = Integer.parseInt(req.getParameter("author"));
         int categoryId = Integer.parseInt(req.getParameter("categoryId"));
-        BookDOT bookDOT = new BookDOT(id,name,pageSize,author,categoryId);
+        BookDOT bookDOT = new BookDOT(name,pageSize,author,categoryId);
         bookService.create(bookDOT);
         String mess = "Them moi thanh cong";
         try {
@@ -98,7 +98,6 @@ public class BookServlet extends HttpServlet {
     private void delete(HttpServletRequest req, HttpServletResponse resp) {
         int id = Integer.parseInt(req.getParameter("id"));
         bookService.delete(id);
-        showList(req,resp);
         try {
             resp.sendRedirect("/book");
         } catch (IOException e) {
