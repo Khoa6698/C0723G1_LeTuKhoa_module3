@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: admin
-  Date: 11/3/2023
-  Time: 3:31 PM
+  Date: 11/4/2023
+  Time: 3:58 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -137,7 +137,7 @@
                         <a class="nav-link" href="#">Trang chủ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Quản lý nhân viên</a>
+                        <a class="nav-link" href="/employee">Quản lý nhân viên</a>
                     </li>
                 </ul>
             </div>
@@ -150,68 +150,49 @@
     <div class="row">
         <h3>Chi tiết nhân viên ></h3>
     </div>
+    <c:choose>
+        <c:when test="${employee.size()!=0}">
+                <c:forEach items="${employee}" var="list">
+                    <!--    BORROW DETAIL-->
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card mb-3" style="width: 18rem;">
+                                <img src="${list.img}"
+                                     class="card-img-top" alt="...">
+                            </div>
+                        </div>
 
-    <!--    BORROW DETAIL-->
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="card mb-3" style="width: 18rem;">
-                <img src="https://tiemanhsky.com/wp-content/uploads/2020/03/61103071_2361422507447925_6222318223514140672_n_1.jpg"
-                     class="card-img-top" alt="...">
-            </div>
-        </div>
-
-        <div class="col-lg-8">
-            <form action="/employee?action=create" method="post">
-                <table class="table table-striped">
-                    <tr>
-                        <td>
-                            <label>Nhân viên: <input type="text" value="name" name="name"></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Ngày sinh: <input type="date" value="Ngày sinh" name="birthDay"></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Số điện thoại: <input type="text" value="Số điện thoại" name="phone"></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Image: <input type="file" value="file ảnh" name="image"></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <select name="account">
-                                <c:forEach items="${list}" var="list">
-                                    <option value="${list.id}">${list.name}</option>
-                                </c:forEach>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button class="btn-create-search btn-primary"><input type="submit" value="Thêm mới"></button>
-                        </td>
-                    </tr>
-                    <%--                <tr>--%>
-                    <%--                    <td>--%>
-                    <%--                        Email:--%>
-                    <%--                    </td>--%>
-                    <%--                </tr>--%>
-                    <%--                <tr>--%>
-                    <%--                    <td>--%>
-                    <%--                        Ngày vào làm:--%>
-                    <%--                    </td>--%>
-                    <%--                </tr>--%>
-                </table>
-            </form>
-        </div>
-    </div>
-
+                        <div class="col-lg-8">
+                            <table class="table table-striped">
+                                <tr>
+                                    <td>
+                                        Nhân viên: ${list.name}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Ngày sinh: ${list.birthDay}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Số điện thoại: ${list.phone}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        User name: ${list.account.name}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </c:forEach>
+        </c:when>
+        <c:otherwise>
+            <h2 class="text-warning"> Không có nhân viên nào được tìm thấy</h2>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <!--FOOTER-->

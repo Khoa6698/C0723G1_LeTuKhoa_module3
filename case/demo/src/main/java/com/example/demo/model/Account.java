@@ -19,6 +19,11 @@ public class Account {
         this.typeAc = typeAc;
     }
 
+    public Account(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Account() {
     }
 

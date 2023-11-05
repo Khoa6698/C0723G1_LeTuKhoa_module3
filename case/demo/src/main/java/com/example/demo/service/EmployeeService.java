@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Employee;
+import com.example.demo.model.EmployeeDOT;
 import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.repository.IEmployeeRepository;
 
@@ -16,5 +17,25 @@ public class EmployeeService implements IEmployeeService{
     @Override
     public Boolean deleteEmployee(int id) {
         return employeeRepository.deleteEmployee(id);
+    }
+
+    @Override
+    public Boolean createEmployee(EmployeeDOT employeeDOT) {
+        return employeeRepository.createEmployee(employeeDOT);
+    }
+
+    @Override
+    public List<Employee> searchByName(String name) {
+        return employeeRepository.searchByName(name);
+    }
+
+    @Override
+    public Employee findById(int id) {
+        return employeeRepository.findById(id);
+    }
+
+    @Override
+    public void updateEmployee(EmployeeDOT employeeDOT) {
+        employeeRepository.updateEmployee(employeeDOT);
     }
 }

@@ -5,12 +5,12 @@ import java.util.Date;
 public class EmployeeDOT {
     private int id;
     private String name;
-    private Date birthDay;
+    private String birthDay;
     private String phone;
     private String image;
     private int accountId;
 
-    public EmployeeDOT(int id, String name, Date birthDay, String phone, String image, int accountId) {
+    public EmployeeDOT(int id, String name, String birthDay, String phone, String image, int accountId) {
         this.id = id;
         this.name = name;
         this.birthDay = birthDay;
@@ -19,7 +19,14 @@ public class EmployeeDOT {
         this.accountId = accountId;
     }
 
-    public EmployeeDOT(String name, Date birthDay, String phone, String image, int accountId) {
+    public EmployeeDOT(String name, String birthDay, String phone, int accountId) {
+        this.name = name;
+        this.birthDay = birthDay;
+        this.phone = phone;
+        this.accountId = accountId;
+    }
+
+    public EmployeeDOT(String name, String birthDay, String phone, String image, int accountId) {
         this.name = name;
         this.birthDay = birthDay;
         this.phone = phone;
@@ -46,11 +53,11 @@ public class EmployeeDOT {
         this.name = name;
     }
 
-    public Date getBirthDay() {
+    public String getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(Date birthDay) {
+    public void setBirthDay(String birthDay) {
         this.birthDay = birthDay;
     }
 

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: admin
-  Date: 11/3/2023
-  Time: 3:31 PM
+  Date: 11/5/2023
+  Time: 9:00 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -19,11 +19,8 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
     />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <style>
 
@@ -84,11 +81,11 @@
         color: #074091;
     }
 
-    button {
+    button{
         border-radius: 10px;
     }
 
-    .btn-create-search {
+    .btn-create-search{
         width: 100px;
         margin: 0 10vh;
     }
@@ -137,7 +134,7 @@
                         <a class="nav-link" href="#">Trang chủ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Quản lý nhân viên</a>
+                        <a class="nav-link" href="/employee">Quản lý nhân viên</a>
                     </li>
                 </ul>
             </div>
@@ -150,68 +147,65 @@
     <div class="row">
         <h3>Chi tiết nhân viên ></h3>
     </div>
-
-    <!--    BORROW DETAIL-->
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="card mb-3" style="width: 18rem;">
-                <img src="https://tiemanhsky.com/wp-content/uploads/2020/03/61103071_2361422507447925_6222318223514140672_n_1.jpg"
-                     class="card-img-top" alt="...">
+    <form action="/employee?action=update" method="post">
+        <!--    BORROW DETAIL-->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-3" style="width: 18rem;">
+                    <img src="${employee.image}" class="card-img-top" alt="...">
+                </div>
             </div>
-        </div>
 
-        <div class="col-lg-8">
-            <form action="/employee?action=create" method="post">
+            <div class="col-lg-8">
                 <table class="table table-striped">
                     <tr>
                         <td>
-                            <label>Nhân viên: <input type="text" value="name" name="name"></label>
+                            <label for="id">Id: </label>
+                            <input type="hidden" name="id" id="id" value="${employee.id}" readonly>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label>Ngày sinh: <input type="date" value="Ngày sinh" name="birthDay"></label>
+                            <label for="name">Nhân viên: </label>
+                            <input type="text" name="name" id="name" value="${employee.name}" required><br>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label>Số điện thoại: <input type="text" value="Số điện thoại" name="phone"></label>
+                            <label for="birthDay">Ngày sinh: </label>
+                            <input type="date" name="birthDay" id="birthDay" value="${employee.birthDay}" required>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label>Image: <input type="file" value="file ảnh" name="image"></label>
+                            <label for="phone">Số điện thoại: </label>
+                            <input type="text" name="phone" id="phone" value="${employee.phone}" required>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <select name="account">
-                                <c:forEach items="${list}" var="list">
-                                    <option value="${list.id}">${list.name}</option>
+                            <label for="img">Ảnh: </label>
+                            <input type="file" name="img" id="img" value="${employee.image}" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select>
+                                <c:forEach items="${account}" var="a">
+                                    <option value="${a.id}">${a.name}</option>
                                 </c:forEach>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <button class="btn-create-search btn-primary"><input type="submit" value="Thêm mới"></button>
+                            <button class="btn-warning" type="submit">Sửa</button>
                         </td>
                     </tr>
-                    <%--                <tr>--%>
-                    <%--                    <td>--%>
-                    <%--                        Email:--%>
-                    <%--                    </td>--%>
-                    <%--                </tr>--%>
-                    <%--                <tr>--%>
-                    <%--                    <td>--%>
-                    <%--                        Ngày vào làm:--%>
-                    <%--                    </td>--%>
-                    <%--                </tr>--%>
                 </table>
-            </form>
+            </div>
         </div>
-    </div>
-
+    </form>
 </div>
 
 <!--FOOTER-->

@@ -1,7 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Account;
 import com.example.demo.model.Employee;
+import com.example.demo.model.EmployeeDOT;
+import com.example.demo.service.AccountService;
 import com.example.demo.service.EmployeeService;
+import com.example.demo.service.IAccountService;
 import com.example.demo.service.IEmployeeService;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +18,7 @@ import java.util.List;
 @WebServlet(name = "helloServlet", value = "/employee")
 public class EmployeeServlet extends HttpServlet {
     private IEmployeeService employeeService = new EmployeeService();
+    private IAccountService accountService = new AccountService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,8 +27,42 @@ public class EmployeeServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "create":
+                showForm(req,resp);
+                break;
+            case "update":
+                formUpdate(req,resp);
+                break;
             default:
                 showList(req, resp);
+        }
+    }
+
+    private void formUpdate(HttpServletRequest req, HttpServletResponse resp) {
+        int id = Integer.parseInt(req.getParameter("id"));
+        Employee employee = employeeService.findById(id);
+        req.setAttribute("employee",employee);
+        req.setAttribute("account", accountService.findAll());
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("view_admin/update.jsp");
+        try {
+            requestDispatcher.forward(req,resp);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showForm(HttpServletRequest req, HttpServletResponse resp) {
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("view_admin/create.jsp");
+        List<Account> accounts = accountService.findAll();
+        req.setAttribute("list", accounts);
+        try {
+            requestDispatcher.forward(req,resp);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -50,6 +89,58 @@ public class EmployeeServlet extends HttpServlet {
             case "delete":
                 delete(req,resp);
                 break;
+            case "create":
+                create(req,resp);
+                break;
+            case "search":
+                search(req,resp);
+                break;
+            case "update":
+                update(req,resp);
+                break;
+        }
+    }
+
+    private void update(HttpServletRequest req, HttpServletResponse resp) {
+        int id = Integer.parseInt(req.getParameter("id"));
+        String name = req.getParameter("name");
+        String birthDay = req.getParameter("birthDay");;
+        String phone = req.getParameter("phone");
+        String img = req.getParameter("img");
+        int accountId = Integer.parseInt(req.getParameter("accountId"));
+        EmployeeDOT employeeDOT = new EmployeeDOT(id,name,birthDay,phone,img,accountId);
+        try {
+            resp.sendRedirect("/book");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void search(HttpServletRequest req, HttpServletResponse resp) {
+        String name = req.getParameter("name");
+        req.setAttribute("employee", employeeService.searchByName(name));
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("view_admin/search.jsp");
+        try {
+            requestDispatcher.forward(req,resp);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void create(HttpServletRequest req, HttpServletResponse resp) {
+        String name =req.getParameter("name");
+        String birthDay =  req.getParameter("birthDay");
+        String phone = req.getParameter("phone");
+        String image = req.getParameter("image");
+        int account = Integer.parseInt(req.getParameter("account"));
+        EmployeeDOT employeeDOT = new EmployeeDOT(name,birthDay,phone,image,account);
+        employeeService.createEmployee(employeeDOT);
+        try {
+            resp.sendRedirect("/employee");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
