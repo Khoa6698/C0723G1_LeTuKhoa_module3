@@ -9,7 +9,7 @@ public interface IEmployeeRepository {
     List<Employee> listEmp();
 
     Boolean deleteEmployee(int id);
-    Boolean createEmployee(EmployeeDOT employeeDOT);
+//    Boolean createEmployee(EmployeeDOT employeeDOT);
     List<Employee> searchByName(String name);
     Employee findById(int id);
     void updateEmployee(EmployeeDOT employeeDOT);

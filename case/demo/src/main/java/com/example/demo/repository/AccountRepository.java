@@ -10,6 +10,9 @@ public class AccountRepository implements IAccountRepository {
     private static final String SELECT_BY_ID = "select * from account where id_account = ?";
     private static final String SELECT_ALL = "select * from account";
 
+    private static final String NEW_EMPLOYEE = "insert into account(username, password, type_account) " +
+            "values(?,?,?);";
+
     @Override
     public Account findById(int id) {
         Connection connection = DataRepository.getConnection();
@@ -52,5 +55,21 @@ public class AccountRepository implements IAccountRepository {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    public Boolean createAccount(Account account) {
+        Connection connection = DataRepository.getConnection();
+        int count = 0;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(NEW_EMPLOYEE);
+            preparedStatement.setString(1,account.getName());
+            preparedStatement.setString(2,account.getPassWord());
+            preparedStatement.setString(3,account.getTypeAc());
+            count = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (count==1);
     }
 }

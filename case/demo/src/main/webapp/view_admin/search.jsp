@@ -157,8 +157,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="card mb-3" style="width: 18rem;">
-                                <img src="${list.img}"
-                                     class="card-img-top" alt="...">
+                                    <img src="${list.img}" class="card-img-top" alt="Avatar">
                             </div>
                         </div>
 

@@ -104,9 +104,9 @@
             <a class="navbar-brand py-0" href="#">
                 <img src="./img/Logo.jpg" alt="logo" width="100%" height="25">
             </a>
-            <form class="d-flex w-50">
+            <form class="d-flex w-50" action="/book?action=search" method="post">
                 <input class="form-control" type="search" placeholder="Nhập tên sách, tác giả hoặc thể loại để tìm"
-                       aria-label="Search">
+                       aria-label="Search" name="name">
                 <button class="btn btn-outline-light ms-1" type="submit">Search</button>
             </form>
             <ul class="d-flex m-0 log-in">
@@ -153,11 +153,15 @@
     <div class="row">
         <ul class="d-flex justify-content-center align-items-center">
             <li>
-                <button class="btn-create-search btn-success"><a href="/employee?action=create">Thêm</a></button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn-create-search btn-success" data-bs-toggle="modal"
+                        data-bs-target="#create">
+                    Thêm mới
+                </button>
             </li>
             <li>
                 <button type="button" class="btn-create-search btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#example">
+                        data-bs-target="#search">
                     Tìm kiếm
                 </button>
             </li>
@@ -178,20 +182,21 @@
                         <td>${list.account.name}</td>
                         <td>${list.name}</td>
                         <td>
-                            <a href="#">Chi tiết</a>
+                            <a href="/employee?action=detail&id=${list.id}">Chi tiết</a>
                         </td>
                         <td>
-                            <button class="btn-warning" style="color: white"><a href="/employee?action=update&id=${list.id}">Sửa</a></button>
+                            <button class="btn-warning" style="color: white"><a
+                                    href="/employee?action=update&id=${list.id}">Sửa</a></button>
                         </td>
                         <td>
-                            <button class="btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            <button class="btn-danger" data-bs-toggle="modal" data-bs-target="#delete"
                                     onclick="send('${list.id}','${list.name}')">Xoá
                             </button>
                         </td>
                     </tr>
                 </c:forEach>
             </table>
-            <div class="modal fade" id="example" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="search" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <form action="/employee?action=search" method="post">
                         <div class="modal-content">
@@ -212,7 +217,7 @@
                     </form>
                 </div>
             </div>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog">
                     <form action="/employee?action=delete" method="post">
@@ -229,6 +234,48 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn-danger" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="create" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form action="/employee?action=create" method="post">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Thêm mới</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">User name(*): </label><br>
+                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                                           aria-describedby="basic-addon1" name="name" id="username"
+                                           onchange="handleValidBtn()" oninput="handleValidBtn()">
+                                    <div style="display: none" class="alert alert-danger" role="alert" id="err-username"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password: </label><br>
+                                    <input type="text" class="form-control" id="password" name="passWord" placeholder="Password"
+                                           onchange="handleValidBtn()" oninput="handleValidBtn()">
+                                    <div style="display: none" class="alert alert-danger" role="alert" id="err-password"></div>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <label for="type" class="form-label">Type account: </label><br>
+                                    <input type="text" class="form-control" id="type" placeholder="Username"
+                                           aria-label="Username"
+                                           aria-describedby="basic-addon1" name="typeAc" readonly value="employee">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn-danger" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn-danger" onclick="handleClickBtn()" id="btn-send">Thêm
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -252,9 +299,77 @@
     </div>
 </div>
 <script>
+    function handleClickBtn() {
+        const btnSend = document.getElementById("btn-send");
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const regName = /^[a-zA-Z]{3,16}$/;
+        // /^([A-Z][a-z]+)(\s([A-Z][a-z]+))*$/
+        const checkName = regName.test(username);
+        if (btnSend.getAttribute("type") === 'button') {
+            if (!username) {
+                document.getElementById("err-username").innerText = "Yêu cầu phải nhập tên";
+                document.getElementById("err-username").style.display = "block";
+            }else if (!checkName){
+                document.getElementById("err-username").innerText = "Tên không đúng định dạng";
+                document.getElementById("err-username").style.display = "block";
+            }
+            if (!password) {
+                document.getElementById("err-password").innerText = "Yêu cầu phải nhập mật khẩu";
+                document.getElementById("err-password").style.display = "block";
+            }
+        }
+    }
+
+    function handleValidBtn() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const btnSend = document.getElementById("btn-send");
+        const regName = /^[a-zA-Z]{3,16}$/;
+        // /^([A-Z][a-z]+)(\s([A-Z][a-z]+))*$/
+        const checkName = regName.test(username);
+        if (username) {
+            document.getElementById("err-username").style.display = "none";
+        }else if(checkName){
+            document.getElementById("err-username").style.display = "none";
+        }
+        if (password) {
+            document.getElementById("err-password").style.display = "none";
+        }
+        if (username && password) { //da nhap
+            btnSend.setAttribute('type', 'submit');
+            btnSend.setAttribute("class", "btn-danger")
+        } else { // chua nhap
+            btnSend.setAttribute('type', 'button');
+            btnSend.setAttribute('class', "btn-secondary")
+        }
+    }
+
+    handleValidBtn()
+</script>
+<script>
     function send(id, name) {
         document.getElementById("id").value = id;
         document.getElementById("name").innerText = name;
+    }
+
+    function checkName() {
+        let name = document.getElementById("username").value;
+        let regName = /^([A-Z][a-z]+)(\s([A-Z][a-z]+))*$/;
+        let checkName = regName.test(name);
+        if (name == "") {
+            document.getElementById("errorName").innerText = "Yêu cầu phải nhập tên";
+            document.getElementById("btn-send").disabled = true;
+            document.getElementById("btn-send").style.background = 'gray';
+        } else if (!checkName) {
+            document.getElementById("errorName").innerText = "Tên không đúng định dạng";
+            document.getElementById("btn-send").disabled = true;
+            document.getElementById("btn-send").style.background = 'gray';
+        } else {
+            document.getElementById("errorName").innerText = "";
+            document.getElementById("btn-send").disabled = false;
+            document.getElementById("btn-send").style.background = 'green';
+        }
     }
 </script>
 </body>

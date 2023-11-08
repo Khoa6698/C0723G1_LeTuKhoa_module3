@@ -8,4 +8,5 @@ public interface IAccountService {
     Account findById(int id);
 
     List<Account> findAll();
+    Boolean createAccount(Account account);
 }

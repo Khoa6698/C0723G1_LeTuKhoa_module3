@@ -84,4 +84,16 @@ public class EmployeeDOT {
     public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeDOT{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", birthDay='" + birthDay + '\'' +
+                ", phone='" + phone + '\'' +
+                ", image='" + image + '\'' +
+                ", accountId=" + accountId +
+                '}';
+    }
 }

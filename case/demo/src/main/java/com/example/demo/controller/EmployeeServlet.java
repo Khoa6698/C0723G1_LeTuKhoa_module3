@@ -27,8 +27,8 @@ public class EmployeeServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "create":
-                showForm(req,resp);
+            case "detail":
+                showFormDetail(req,resp);
                 break;
             case "update":
                 formUpdate(req,resp);
@@ -53,10 +53,13 @@ public class EmployeeServlet extends HttpServlet {
         }
     }
 
-    private void showForm(HttpServletRequest req, HttpServletResponse resp) {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("view_admin/create.jsp");
-        List<Account> accounts = accountService.findAll();
-        req.setAttribute("list", accounts);
+    private void showFormDetail(HttpServletRequest req, HttpServletResponse resp) {
+        int id = Integer.parseInt(req.getParameter("id"));
+        Employee employee = employeeService.findById(id);
+        req.setAttribute("employee",employee);
+        req.setAttribute("account", accountService.findAll());
+//        req.setAttribute("list", accounts);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("view_admin/detail.jsp");
         try {
             requestDispatcher.forward(req,resp);
         } catch (ServletException e) {
@@ -109,8 +112,9 @@ public class EmployeeServlet extends HttpServlet {
         String img = req.getParameter("img");
         int accountId = Integer.parseInt(req.getParameter("accountId"));
         EmployeeDOT employeeDOT = new EmployeeDOT(id,name,birthDay,phone,img,accountId);
+        employeeService.updateEmployee(employeeDOT);
         try {
-            resp.sendRedirect("/book");
+            resp.sendRedirect("/employee");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -131,12 +135,10 @@ public class EmployeeServlet extends HttpServlet {
 
     private void create(HttpServletRequest req, HttpServletResponse resp) {
         String name =req.getParameter("name");
-        String birthDay =  req.getParameter("birthDay");
-        String phone = req.getParameter("phone");
-        String image = req.getParameter("image");
-        int account = Integer.parseInt(req.getParameter("account"));
-        EmployeeDOT employeeDOT = new EmployeeDOT(name,birthDay,phone,image,account);
-        employeeService.createEmployee(employeeDOT);
+        String passWord =  req.getParameter("passWord");
+        String typeAc = req.getParameter("typeAc");
+        Account account = new Account(name,passWord,typeAc);
+        accountService.createAccount(account);
         try {
             resp.sendRedirect("/employee");
         } catch (IOException e) {

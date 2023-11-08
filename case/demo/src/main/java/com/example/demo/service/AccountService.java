@@ -17,4 +17,9 @@ public class AccountService implements IAccountService{
     public List<Account> findAll() {
         return accountRepository.findAll();
     }
+
+    @Override
+    public Boolean createAccount(Account account) {
+        return accountRepository.createAccount(account);
+    }
 }

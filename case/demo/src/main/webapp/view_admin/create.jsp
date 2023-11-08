@@ -148,7 +148,7 @@
 <!--MAIN-CONTENT-->
 <div class="container" style="background-color: white; height: 100%">
     <div class="row">
-        <h3>Chi tiết nhân viên ></h3>
+        <h3>Thêm mới nhân viên ></h3>
     </div>
 
     <!--    BORROW DETAIL-->
@@ -180,7 +180,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <label>Image: <input type="file" value="file ảnh" name="image"></label>
+                            <label>Image: <input type="text" value="file ảnh" name="image"></label>
                         </td>
                     </tr>
                     <tr>
@@ -197,21 +197,10 @@
                             <button class="btn-create-search btn-primary"><input type="submit" value="Thêm mới"></button>
                         </td>
                     </tr>
-                    <%--                <tr>--%>
-                    <%--                    <td>--%>
-                    <%--                        Email:--%>
-                    <%--                    </td>--%>
-                    <%--                </tr>--%>
-                    <%--                <tr>--%>
-                    <%--                    <td>--%>
-                    <%--                        Ngày vào làm:--%>
-                    <%--                    </td>--%>
-                    <%--                </tr>--%>
                 </table>
             </form>
         </div>
     </div>
-
 </div>
 
 <!--FOOTER-->

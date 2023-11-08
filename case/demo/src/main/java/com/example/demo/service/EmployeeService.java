@@ -19,10 +19,10 @@ public class EmployeeService implements IEmployeeService{
         return employeeRepository.deleteEmployee(id);
     }
 
-    @Override
-    public Boolean createEmployee(EmployeeDOT employeeDOT) {
-        return employeeRepository.createEmployee(employeeDOT);
-    }
+//    @Override
+//    public Boolean createEmployee(EmployeeDOT employeeDOT) {
+//        return employeeRepository.createEmployee(employeeDOT);
+//    }
 
     @Override
     public List<Employee> searchByName(String name) {

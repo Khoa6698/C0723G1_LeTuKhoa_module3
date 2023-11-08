@@ -14,8 +14,8 @@ public class EmployeeRepository implements IEmployeeRepository {
     private IAccountRepository accountRepository = new AccountRepository();
     private static final String SELECT_ALL = "select * from employee;";
     private static final String DELETE = "delete from employee where employee_id = ?";
-    private static final String NEW_EMPLOYEE = "insert into employee(employee_name, date_of_birth, phone_number,image, id_account) " +
-                                                    "values(?,?,?,?,?);";
+//    private static final String NEW_EMPLOYEE = "insert into employee(employee_name, date_of_birth, phone_number,image, id_account) " +
+//                                                    "values(?,?,?,?,?);";
     private static final String SEARCH_BY_NAME = "select * from employee where employee_name like ?";
     private static final String SELECT_BY_ID = "select * from employee where employee_id = ?";
     private static final String UPDATE = "update employee set employee_name = ?," +
@@ -63,23 +63,23 @@ public class EmployeeRepository implements IEmployeeRepository {
         return true;
     }
 
-    @Override
-    public Boolean createEmployee(EmployeeDOT employeeDOT) {
-        Connection connection = DataRepository.getConnection();
-        int count = 0;
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(NEW_EMPLOYEE);
-            preparedStatement.setString(1,employeeDOT.getName());
-            preparedStatement.setString(2,employeeDOT.getBirthDay());
-            preparedStatement.setString(3,employeeDOT.getPhone());
-            preparedStatement.setString(4,employeeDOT.getImage());
-            preparedStatement.setInt(5,employeeDOT.getAccountId());
-            count = preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return (count==1);
-    }
+//    @Override
+//    public Boolean createEmployee(EmployeeDOT employeeDOT) {
+//        Connection connection = DataRepository.getConnection();
+//        int count = 0;
+//        try {
+//            PreparedStatement preparedStatement = connection.prepareStatement(NEW_EMPLOYEE);
+//            preparedStatement.setString(1,employeeDOT.getName());
+//            preparedStatement.setString(2,employeeDOT.getBirthDay());
+//            preparedStatement.setString(3,employeeDOT.getPhone());
+//            preparedStatement.setString(4,employeeDOT.getImage());
+//            preparedStatement.setInt(5,employeeDOT.getAccountId());
+//            count = preparedStatement.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return (count==1);
+//    }
 
     @Override
     public List<Employee> searchByName(String name) {
